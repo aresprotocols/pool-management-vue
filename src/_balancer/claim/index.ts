@@ -17,7 +17,9 @@ export async function ipfsGet(
   ipfsHash: string,
   protocolType = 'ipfs'
 ) {
-  const url = `https://${gateway}/${protocolType}/${ipfsHash}`;
+  // TODO
+  // const url = `https://${gateway}/${protocolType}/${ipfsHash}`;
+  const url = `http://${gateway}/${protocolType}/${ipfsHash}`;
   return fetch(url).then(res => res.json());
 }
 
@@ -33,6 +35,16 @@ export const constants = {
     merkleRedeem: '0x3bc73D276EEE8cA9424Ecb922375A0357c1833B3',
     snapshot:
       'https://storageapi.fleek.co/balancer-team-bucket/balancer-claim-kovan/snapshot'
+  },
+  4: {
+    merkleRedeem: '0xa679c2741e18Bf2E1b30f22bC3Be9c3d63D002e0'
+    // snapshot:
+    //   'https://storageapi.fleek.co/balancer-team-bucket/balancer-claim-kovan/snapshot'
+  },
+  1337: {
+    merkleRedeem: '0xDb56f2e9369E0D7bD191099125a3f6C370F8ed15'
+    // snapshot:
+    //   'https://storageapi.fleek.co/balancer-team-bucket/balancer-claim-kovan/snapshot'
   }
 };
 

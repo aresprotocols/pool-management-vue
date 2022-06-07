@@ -4,6 +4,8 @@ import registryKovan from '@balancer-labs/assets/generated/pm/registry.kovan.jso
 import homestead from '@/config/homestead.json';
 import kovan from '@/config/kovan.json';
 import rinkeby from '@/config/rinkeby.json';
+import local from '@/config/ares_rinkeby.json';
+import localToken from '@/config/ares_rinkeby_token.json';
 
 const registryRinkeby = {
   tokens: {
@@ -23,10 +25,11 @@ const registryRinkeby = {
   untrusted: []
 };
 
-const configs = { homestead, kovan, rinkeby };
+const configs = { homestead, kovan, rinkeby, local };
 configs.homestead = merge(registry, configs.homestead);
 configs.kovan = merge(registryKovan, configs.kovan);
 configs.rinkeby = merge(registryRinkeby, configs.rinkeby);
+configs.local = merge(localToken, configs.local);
 const network = process.env.VUE_APP_NETWORK || 'homestead';
 const config = configs[network];
 config.env = process.env.VUE_APP_ENV || 'staging';
