@@ -24,12 +24,15 @@ const mutations = {
 const actions = {
   loadPricesById: async ({ commit }, payload) => {
     commit('GET_PRICE_REQUEST');
+    console.log("获取价格",payload)
     const idString = payload.join('%2C');
     let data;
     try {
       const url = `${ENDPOINT}/simple/price?ids=${idString}&vs_currencies=usd`;
       const response = await fetch(url);
       data = await response.json();
+      data['mudan'] = { usd: 1200 };
+      console.log("获取价格",data)
     } catch (e) {
       return;
     }

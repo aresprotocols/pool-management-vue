@@ -34,4 +34,6 @@ const network = process.env.VUE_APP_NETWORK || 'homestead';
 const config = configs[network];
 config.env = process.env.VUE_APP_ENV || 'staging';
 
+console.log('Using network:', config);
+
 export default config;

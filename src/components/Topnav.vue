@@ -13,13 +13,13 @@
           <img
             src="~/@/assets/logo.svg"
             class="mr-2 v-align-middle"
-            width="32"
-            height="32"
+            width="48"
+            height="48"
           />
           <span
             class="d-inline-block text-white"
             style="letter-spacing: 1px; font-size: 16px;"
-            v-text="'Balancer'"
+            v-text="'Bootstrap Pool'"
           />
         </router-link>
       </div>
@@ -36,6 +36,7 @@
           v-if="$auth.isAuthenticated && !wrongNetwork"
           @click="modalOpen.account = true"
           :loading="loading || ui.authLoading"
+          class="button-primary"
         >
           <Avatar :address="web3.account" size="16" class="ml-n1 mr-n1" />
           <span v-if="web3.name" v-text="web3.name" class="hide-sm ml-2 pl-1" />
@@ -65,7 +66,7 @@
           :to="{ name: 'wallet' }"
           class="ml-2"
         >
-          <UiButton class="v-align-bottom p-0">
+          <UiButton class="v-align-bottom p-0 button-primary">
             <Icon name="wallet" size="20" class="mx-3" />
           </UiButton>
         </router-link>

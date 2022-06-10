@@ -49,6 +49,7 @@ export default {
   },
   computed: {
     step() {
+      console.log("button step", this.requireProxy, this.web3.dsProxyAddress);
       if (this.loading || this.isLoading) return 'loading';
       if (this.requireLogin && !this.$auth.isAuthenticated) return 'login';
       if (this.requireProxy && !this.web3.dsProxyAddress) return 'proxy';

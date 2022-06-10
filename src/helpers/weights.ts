@@ -29,6 +29,7 @@ export function getMaxPercentage(isSharedOrLockedSmartPool) {
 // Convert to a denorm value; divide the percentage by the resolution
 // 50% with resolution 2 is 25; 50% with resolution 4 is 12.5
 export function getDenorm(percentage, isSharedOrLockedSmartPool) {
+  console.log('percentage', percentage, isSharedOrLockedSmartPool);
   return bnum(percentage)
     .times(NUMERIC_PRECISION)
     .integerValue(BigNumber.ROUND_DOWN)

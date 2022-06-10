@@ -249,6 +249,7 @@ export function calcPoolTokensByRatio(ratio, totalShares) {
 
 export function getTokenBySymbol(symbol) {
   const tokenAddresses = Object.keys(config.tokens);
+  console.log(config);
   const tokenAddress = tokenAddresses.find(
     tokenAddress => config.tokens[tokenAddress].symbol === symbol
   );

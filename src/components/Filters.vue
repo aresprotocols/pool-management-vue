@@ -1,11 +1,11 @@
 <template>
   <div class="overflow-hidden">
-    <Toggle
-      :value="type"
-      :options="poolTypes"
-      @select="selectType"
-      class="mb-4"
-    />
+    <!--<Toggle-->
+    <!--  :value="type"-->
+    <!--  :options="poolTypes"-->
+    <!--  @select="selectType"-->
+    <!--  class="mb-4"-->
+    <!--/>-->
     <div class="d-flex flex-items-center mb-4 pt-2 float-none float-sm-right">
       <div v-text="$t('filterByAsset')" class="pb-1" />
       <div v-for="(token, i) in tokens" :key="i" class="topic ml-2">
@@ -47,7 +47,7 @@ export default {
     return {
       input: {},
       tokens: [],
-      type: 'shared',
+      type: 'smart',
       poolTypes: {
         shared: 'Shared',
         smart: 'Smart',

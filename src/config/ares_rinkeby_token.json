@@ -43,6 +43,17 @@
       "color": "#422940",
       "hasIcon": false,
       "logoUrl": ""
+    },
+    "0xAFe1f24A39CAC49E42853b333242b60BE7D4A3A7": {
+      "address": "0xAFe1f24A39CAC49E42853b333242b60BE7D4A3A7",
+      "id": "mudan",
+      "name": "MUDAN",
+      "symbol": "MUDAN",
+      "decimals": 18,
+      "precision": 3,
+      "color": "#5eb8aa",
+      "hasIcon": false,
+      "logoUrl": ""
     }
   },
   "untrusted": [

@@ -313,6 +313,7 @@ function calculateJoinPoolAmount(amounts: string[], poolData) {
   const weights = poolData.tokens.map(token => fnum(token.denormWeight));
   const amountsIn = amounts.map(amount => fnum(amount));
   const totalSupply = fnum(poolData.totalSupply);
+  // @ts-ignore
   const swapFee = fnum(scale(bnum(poolData.swapFee), 18));
   return _exactTokensInForBPTOut(
     balances,

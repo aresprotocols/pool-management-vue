@@ -16,7 +16,7 @@
           </li>
           <li>
             <router-link
-              :to="{ name: 'explore' }"
+              :to="{ name: 'explore', query: { type: 'smart' } }"
               :class="{ active: $router.currentRoute.name === 'explore' }"
               v-text="$t('explorePools')"
             />
@@ -29,17 +29,17 @@
             />
           </li>
         </ul>
-        <ul class="py-3">
-          <li>
-            <a :href="config.exchangeUrl" target="_blank">
-              {{ $t('exchange') }}
-              <Icon name="external-link" class="ml-1" />
-            </a>
-          </li>
-          <li>
-            <a @click="modalOpen = true" v-text="$t('about')" />
-          </li>
-        </ul>
+        <!--<ul class="py-3">-->
+        <!--  <li>-->
+        <!--    <a :href="config.exchangeUrl" target="_blank">-->
+        <!--      {{ $t('exchange') }}-->
+        <!--      <Icon name="external-link" class="ml-1" />-->
+        <!--    </a>-->
+        <!--  </li>-->
+        <!--  <li>-->
+        <!--    <a @click="modalOpen = true" v-text="$t('about')" />-->
+        <!--  </li>-->
+        <!--</ul>-->
       </div>
       <div class="d-block m-4">
         <a
@@ -81,7 +81,7 @@ export default {
   z-index: 5;
   border-right: $border;
   position: fixed;
-  background-color: $panel-background;
+  background-color: $panel-background-95;
   margin-top: 79px;
   width: 264px;
   left: -264px;
@@ -98,7 +98,7 @@ export default {
     padding: 10px 22px 12px;
 
     &.active {
-      background: $blue-900;
+      background: $blue-300;
       border-left: 3px solid $blue;
       padding-left: 19px;
     }

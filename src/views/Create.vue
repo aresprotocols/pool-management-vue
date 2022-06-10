@@ -1,16 +1,16 @@
 <template>
   <Page>
-    <div class="d-flex px-4 px-md-0 mb-3">
-      <Toggle
-        class="tooltipped tooltipped-n"
-        :value="type"
-        :options="poolTypes"
-        :aria-label="
-          $t(type === 'SMART_POOL' ? 'createSmartTip' : 'createSharedTip')
-        "
-        @select="handleSelectType"
-      />
-    </div>
+    <!--<div class="d-flex px-4 px-md-0 mb-3">-->
+    <!--  <Toggle-->
+    <!--    class="tooltipped tooltipped-n"-->
+    <!--    :value="type"-->
+    <!--    :options="poolTypes"-->
+    <!--    :aria-label="-->
+    <!--      $t(type === 'SMART_POOL' ? 'createSmartTip' : 'createSharedTip')-->
+    <!--    "-->
+    <!--    @select="handleSelectType"-->
+    <!--  />-->
+    <!--</div>-->
     <div class="d-flex flex-items-center px-4 px-md-0 mb-3">
       <h4 v-text="$t('assets')" class="flex-auto" />
     </div>
@@ -107,7 +107,7 @@
         </UiTableTr>
       </div>
     </UiTable>
-    <UiButton v-if="tokens.length < 8" class="mb-4" @click="addToken">
+    <UiButton v-if="tokens.length < 8" class="mb-4 button button-primary" @click="addToken">
       {{ $t('addToken') }}
     </UiButton>
     <div class="d-flex flex-items-center px-4 px-md-0 mb-3">
@@ -227,7 +227,7 @@ export default {
   data() {
     return {
       poolTypes,
-      type: 'SHARED_POOL',
+      type: 'SMART_POOL',
       amounts: {},
       weights: {},
       totalWeight: 0,
@@ -460,6 +460,7 @@ export default {
     },
     async create() {
       this.loading = true;
+      console.log('Creating pool', this.tokens);
       const weights = this.tokens.map(token =>
         toWei(
           getDenorm(
@@ -468,7 +469,7 @@ export default {
           ).toString()
         ).toString()
       );
-
+      console.log('Creating pool', weights);
       if (this.type === 'SHARED_POOL') {
         const poolParams = {
           tokens: this.tokens,
@@ -500,6 +501,7 @@ export default {
           addTokenTimeLockInBlocks,
           initialSupply
         };
+        console.log('Creating smart pool', poolParams, crpParams, rights);
         try {
           await this.createSmartPool({
             poolParams,
