@@ -19,7 +19,7 @@
           <span
             class="d-inline-block text-white"
             style="letter-spacing: 1px; font-size: 16px;"
-            v-text="'Bootstrap Pool'"
+            v-text="'BootstrapNFT'"
           />
         </router-link>
       </div>

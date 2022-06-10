@@ -354,7 +354,10 @@ const actions = {
         dsProxyAddress,
         JSON.stringify(underlyingParams)
       );
+      console.log("只能赤字：", dsProxyAddress, underlyingParams);
       const params = makeProxyTransaction(dsProxyAddress, underlyingParams);
+      console.log("只能赤字2222222：", params);
+
       const tx = await dispatch('processTransaction', {
         params,
         title: 'Create a smart pool'
