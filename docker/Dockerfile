@@ -2,16 +2,6 @@
 # We label our stage as ‘builder’
 FROM node:14-alpine as builder
 
-COPY package.json package-lock.json ./
-
-## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
-RUN apk add --no-cache python2 g++ make && \
-    npm ci && mkdir /ng-app && mv ./node_modules ./ng-app
-
-WORKDIR /ng-app
-
-COPY . /ng-app/
-
 ## Build the angular app in production mode and store the artifacts in dist folder
 ARG VUE_APP_ENV=local
 ENV VUE_APP_ENV=$VUE_APP_ENV
@@ -22,7 +12,16 @@ ENV VUE_APP_NETWORK=$VUE_APP_NETWORK
 ARG VUE_APP_IPFS_NODE=localhost:5001
 ENV VUE_APP_IPFS_NODE=$VUE_APP_IPFS_NODE
 
-RUN npm run build
+
+## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN apk add --no-cache python3 git g++ make && \
+    git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+WORKDIR /app
+
+COPY . /app
+
+RUN yarn install && yarn run build
 
 ### STAGE 2: Setup ###
 FROM nginx:1.14.1-alpine
@@ -41,6 +40,6 @@ COPY ${NGINX_CONF} /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 
 ## From ‘builder’ stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=builder /ng-app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]

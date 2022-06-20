@@ -1,5 +1,6 @@
 {
   "name": "pool-management-vue",
+  "packageManager": "yarn@3.2.1",
   "version": "0.1.0",
   "repository": "balancer-labs/pool-management-vue",
   "license": "GPL-3.0",
