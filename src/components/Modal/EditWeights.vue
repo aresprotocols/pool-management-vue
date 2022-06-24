@@ -36,9 +36,9 @@
       </UiTable>
       <div
         v-if="isLocked"
-        class="my-2 text-center"
-        v-text="`${$t('unlock')} ${tokenToSpend.symbol} ${$t('toContinue')}.`"
+        class="my-2 text-center flex-column"
       >
+        <div v-text="`${$t('unlock')} ${tokenToSpend.symbol} ${$t('toContinue')}.`"></div>
         <ButtonUnlock
           :tokenAddress="tokenToSpend.address"
           :amount="amountToSpend"
