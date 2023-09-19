@@ -10,6 +10,7 @@ export async function sendTransaction(
   log,
   [contractType, contractAddress, action, params, overrides]: any
 ) {
+  console.log("sendTransaction", contractType, contractAddress, action, params, overrides);
   const signer = web3.getSigner();
   const contract = new Contract(
     getAddress(contractAddress),

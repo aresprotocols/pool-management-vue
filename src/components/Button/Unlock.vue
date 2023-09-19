@@ -33,6 +33,7 @@ export default {
         this.decimals || this.web3.tokenMetadata[this.tokenAddress].decimals
       );
       this.$emit('input', res);
+      console.log("locked", res);
       return res;
     }
   },

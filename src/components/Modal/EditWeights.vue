@@ -78,7 +78,7 @@ import {
   calcPoolOutGivenWeightIncrease
 } from '@/helpers/math';
 import { bnum, toWei, scale, isLocked } from '@/helpers/utils';
-import { getDivisor } from '@/helpers/weights';
+import {getDenorm, getDivisor} from '@/helpers/weights';
 
 export default {
   props: ['open', 'pool', 'defaultValue'],
@@ -137,6 +137,7 @@ export default {
     amountToSpend() {
       const token = this.pool.tokens[this.tokenIndex];
       if (this.isWeightIncrease) {
+        console.log('amountToSpend', token);
         const tokenAmountIn = calcSingleInGivenWeightIncrease(
           scale(bnum(token.balance), token.decimals),
           toWei(token.denormWeight),
@@ -148,6 +149,7 @@ export default {
           this.totalWeight +
           this.divisor * parseFloat(token.denormWeight) -
           parseFloat(this.weights[this.tokenIndex]);
+
         const poolAmountIn = calcPoolInGivenWeightDecrease(
           toWei(totalWeight),
           toWei(token.denormWeight * this.divisor),
@@ -273,21 +275,28 @@ export default {
       this.loading = true;
       const token = this.pool.tokens[this.tokenIndex];
       if (this.isWeightIncrease) {
+        console.log("new weight:", this.weights, this.weights[this.tokenIndex], this.totalWeight);
+        console.log("toSpend: ", this.amountToSpend);
         const tokenWeiAmountIn = bnum(this.amountToSpend);
         const tokenAmountIn = scale(tokenWeiAmountIn, -token.decimals);
+        const nw = getDenorm(this.weights[this.tokenIndex] / this.totalWeight * 100, false);
+
+        console.log("new ssss", nw.toString(), tokenWeiAmountIn.toString());
         await this.increaseWeight({
           poolAddress: this.pool.controller,
           token: token.checksum,
-          newWeight: this.weights[this.tokenIndex],
+          newWeight: nw,
           tokenAmountIn
         });
       } else {
         const poolWeiAmountIn = bnum(this.amountToSpend);
         const poolAmountIn = scale(poolWeiAmountIn, -18);
+        const nw = getDenorm(this.weights[this.tokenIndex] / this.totalWeight * 100, false);
+        console.log("decrease weight111:",nw.toString(), this.weights, this.pool.controller, poolAmountIn.toString());
         await this.decreaseWeight({
           poolAddress: this.pool.controller,
           token: token.checksum,
-          newWeight: this.weights[this.tokenIndex],
+          newWeight: nw,
           poolAmountIn
         });
       }

@@ -38,6 +38,7 @@ export function bdiv(a: BigNumber, b: BigNumber): BigNumber {
   const c0 = a.times(BONE);
   const c1 = c0.plus(b.div(new BigNumber(2)));
   const c2 = c1.idiv(b);
+  console.log('c2', a.toString(), b.toString(), c0.toString(), c1.toString(), c2.toString());
   return c2;
 }
 
@@ -295,6 +296,7 @@ export function calcSingleInGivenWeightIncrease(
   tokenWeight: BigNumber,
   tokenWeightNew: BigNumber
 ): BigNumber {
+  console.log("WeightIncrease", tokenBalance.toString(),tokenWeight.toString(), tokenWeightNew.toString());
   const deltaWeight = tokenWeightNew.minus(tokenWeight);
   const tokenBalanceIn = bmul(tokenBalance, bdiv(deltaWeight, tokenWeight));
   return tokenBalanceIn;
@@ -316,6 +318,8 @@ export function calcPoolInGivenWeightDecrease(
   tokenWeightNew: BigNumber,
   poolSupply: BigNumber
 ): BigNumber {
+  console.log("totalWeight", totalWeight.toString(),tokenWeight.toString(), tokenWeightNew.toString(), poolSupply.toString());
+
   const deltaWeight = tokenWeight.minus(tokenWeightNew);
   const poolAmountIn = bmul(poolSupply, bdiv(deltaWeight, totalWeight));
   return poolAmountIn;

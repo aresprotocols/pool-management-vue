@@ -61,6 +61,10 @@ export default class Pool {
     try {
       this.metadata = await this.getSubgraphMetadata();
       const metadata = await this.getNodeMetadata();
+      console.log("isCrp", this.isCrp());
+      console.log("metadata", this.metadata);
+      console.log("node metadata", metadata);
+
       this.metadata = { ...this.metadata, ...metadata };
       this.ready = true;
       return this.metadata;

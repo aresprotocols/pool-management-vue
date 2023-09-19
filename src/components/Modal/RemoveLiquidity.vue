@@ -371,6 +371,10 @@ export default {
         const poolSupply = denormalizeBalance(this.totalShares, 18);
         const totalWeight = bnum(this.pool.totalWeight).times('1e18');
         const swapFee = bnum(this.pool.swapFee).times('1e18');
+        console.log(
+          'param:',
+          this.totalShares.toString()
+        );
 
         // Need this check here as well (same as in validationError)
         // Otherwise, if amount > poolSupply, ratio is negative, and bpowApprox will not converge

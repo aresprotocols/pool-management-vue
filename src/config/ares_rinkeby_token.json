@@ -1,7 +1,7 @@
 {
   "tokens": {
-    "0x02DDd013C9C61Bdb5f6116446a2Cf8557EB05206": {
-      "address": "0x02DDd013C9C61Bdb5f6116446a2Cf8557EB05206",
+    "0xd23BBE4386e2a738085990Bad5773CC16561b910": {
+      "address": "0xd23BBE4386e2a738085990Bad5773CC16561b910",
       "id": "weth",
       "name": "Wrapped Ether",
       "symbol": "WETH",
@@ -22,8 +22,8 @@
       "hasIcon": false,
       "logoUrl": ""
     },
-    "0x6C97D2dda691c7eeeffCF7FF561D9CC596c94739": {
-      "address": "0x6C97D2dda691c7eeeffCF7FF561D9CC596c94739",
+    "0x3C666c26Baf19DE73F9BACD1453894602D55a162": {
+      "address": "0x3C666c26Baf19DE73F9BACD1453894602D55a162",
       "id": "usd-coin",
       "name": "USDC",
       "symbol": "USDC",
@@ -33,8 +33,8 @@
       "hasIcon": false,
       "logoUrl": ""
     },
-    "0xa3FcE8597Ae238f1050c382f1f94Db8c646529A9": {
-      "address": "0xa3FcE8597Ae238f1050c382f1f94Db8c646529A9",
+    "0x948B2f671242Cc12dDA4aBC7E9Fd348f6CFaF3dB": {
+      "address": "0x948B2f671242Cc12dDA4aBC7E9Fd348f6CFaF3dB",
       "id": "dai",
       "name": "DAI",
       "symbol": "DAI",

@@ -7,6 +7,10 @@ const reserveCurrencies = {
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
     '0x261b45D85cCFeAbb11F022eBa346ee8D1cd488c0' // rDAI
   ],
+  4: [
+      "0xa3FcE8597Ae238f1050c382f1f94Db8c646529A9",
+      "0x6C97D2dda691c7eeeffCF7FF561D9CC596c94739"
+  ],
   42: [
     '0x1528F3FCc26d13F7079325Fb78D9442607781c8C', // DAI
     '0x2F375e94FC336Cdec2Dc0cCB5277FE59CBf1cAe5', // USDC
@@ -31,6 +35,7 @@ export function swapPrice(pool, chainId, swap) {
 }
 
 export function getLbpData(pool, chainId) {
+  console.log('getLbpData', pool, chainId);
   const reserves = new Set(reserveCurrencies[chainId]);
   const poolTokens = new Set(pool.tokensList);
 

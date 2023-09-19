@@ -106,6 +106,7 @@ export default {
   },
   computed: {
     poolAmountIn() {
+      console.log('poolAmountIn', this.pool.metadata);
       return calcPoolInGivenTokenRemove(
         bnum(this.pool.metadata.totalWeight).times('1e18'),
         denormalizeBalance(this.pool.metadata.totalShares, 18),
@@ -126,6 +127,7 @@ export default {
       this.$emit('close');
     },
     async handleRemoveToken(tokenAddress, tokenWeight) {
+      console.log('handleRemoveToken', this.pool);
       this.pendingRemove = tokenAddress;
       this.pendingWeight = tokenWeight;
       this.step = 1;

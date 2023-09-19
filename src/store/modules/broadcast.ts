@@ -536,6 +536,7 @@ const actions = {
         [toWei(poolAmountIn).toString(), minAmountsOut],
         {}
       ];
+      console.log("exit pool:", params);
       await dispatch('processTransaction', {
         params,
         title: 'Remove liquidity'
@@ -624,6 +625,7 @@ const actions = {
         {}
       ];
       const params = makeProxyTransaction(dsProxyAddress, underlyingParams);
+      console.log("fee", dsProxyAddress, underlyingParams, params);
       await dispatch('processTransaction', { params });
       dispatch('notify', ['green', "You've successfully changed the swap fee"]);
       commit('SET_SWAP_FEE_SUCCESS');
@@ -699,6 +701,7 @@ const actions = {
         [poolAddress, token, newWeight, tokenAmountIn],
         {}
       ];
+      console.log("increaseWeight", dsProxyAddress, underlyingParams);
       const params = makeProxyTransaction(dsProxyAddress, underlyingParams);
       await dispatch('processTransaction', { params });
       commit('INCREASE_WEIGHT_SUCCESS');
@@ -724,6 +727,7 @@ const actions = {
         [poolAddress, token, newWeight, poolAmountIn.toString()],
         {}
       ];
+      console.log("decreaseWeight", dsProxyAddress, underlyingParams);
       const params = makeProxyTransaction(dsProxyAddress, underlyingParams);
       await dispatch('processTransaction', { params });
       commit('DECREASE_WEIGHT_SUCCESS');
@@ -750,6 +754,7 @@ const actions = {
         [poolAddress, newWeights, startBlock, endBlock],
         {}
       ];
+      console.log("update gradually weight:", dsProxyAddress, underlyingParams);
       const params = makeProxyTransaction(dsProxyAddress, underlyingParams);
       await dispatch('processTransaction', { params });
       commit('UPDATE_WEIGHTS_GRADUALLY_SUCCESS');

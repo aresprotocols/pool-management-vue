@@ -52,6 +52,7 @@ export default {
       return parseFloat(this.bPool.metadata.totalShares);
     },
     poolLiquidity() {
+      console.log("pool liquidity:", this.pool, this.price);
       return getPoolLiquidity(this.pool, this.price.values);
     },
     poolSharePercent() {

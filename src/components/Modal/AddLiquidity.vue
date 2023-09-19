@@ -222,12 +222,15 @@ export default {
     }
   },
   async created() {
+    console.log("created", this.bPool, this.web3.dsProxyAddress, "dd");
     this.addLiquidityEnabled = await this.canAddLiquidity();
   },
   computed: {
     poolTokenBalance() {
       const bptAddress = this.bPool.getBptAddress();
       const balance = this.web3.balances[getAddress(bptAddress)];
+      console.log("get bpt web3 balances:", this.web3);
+
       return normalizeBalance(balance || '0', 18);
     },
     totalShares() {
@@ -315,7 +318,7 @@ export default {
       return undefined;
     },
     requiredApprovals() {
-      return Object.fromEntries(
+      const res = Object.fromEntries(
         this.bPool.metadata.tokensList
           .filter(
             token =>
@@ -324,6 +327,8 @@ export default {
           )
           .map(token => [token, this.amounts[token]])
       );
+      console.log("requiredApprovals1", res, this.bPool.metadata.tokensList, this.amounts);
+      return res;
     },
     transferError() {
       if (this.tokenError || this.validationError) return undefined;
@@ -476,6 +481,7 @@ export default {
   methods: {
     ...mapActions(['joinPool', 'joinswapExternAmountIn']),
     handleChange(changedAmount, changedToken) {
+
       const ratio = bnum(changedAmount).div(changedToken.balance);
       if (this.isMultiAsset) {
         this.poolTokens = calcPoolTokensByRatio(ratio, this.totalShares);
@@ -537,6 +543,8 @@ export default {
           ? ''
           : ratio.times(token.balance).toString();
       });
+
+      console.log("change amount:", this.amounts);
     },
     handleMax(token) {
       const balance = this.web3.balances[token.checksum];
@@ -579,38 +587,50 @@ export default {
               token => token.checksum === tokenAddress
             );
             const amount = bnum(this.amounts[token.checksum]);
+            console.log("amount ", token.address, amount);
             const inputAmountIn = denormalizeBalance(amount, token.decimals)
               .div(1 - BALANCE_BUFFER)
               .integerValue(BigNumber.ROUND_UP);
+            console.log("inputAmountIn ", token.address, inputAmountIn);
+            console.log("token", token, this.web3.balances[token.checksum])
             const balanceAmountIn = bnum(this.web3.balances[token.checksum]);
+            console.log("balanceAmountIn ", token.address, balanceAmountIn.toString());
             const tokenAmountIn = BigNumber.min(inputAmountIn, balanceAmountIn);
+            console.log("tokenAmountIn ", token.address, tokenAmountIn.toString());
             return tokenAmountIn.toString();
           }),
           isCrp: this.bPool.isCrp()
         };
-        console.log(`Adding multi-asset liquidity: ${params}`);
+        console.log("Adding multi-asset liquidity:", params);
         const txResult = await this.joinPool(params);
         if (isTxReverted(txResult)) this.transactionReverted = true;
       } else {
         const tokenIn = this.pool.tokens.find(
           token => token.checksum === this.activeToken
         );
+        console.log("token in :", tokenIn);
         const tokenAmountIn = denormalizeBalance(
           this.amounts[tokenIn.checksum],
           tokenIn.decimals
         )
           .integerValue(BigNumber.ROUND_UP)
           .toString();
+
+        console.log("token in tokenAmountIn:", tokenAmountIn);
         const minPoolAmountOut = bnum(this.poolTokens)
           .times(1 - BALANCE_BUFFER)
           .integerValue(BigNumber.ROUND_UP)
           .toString();
+
+        console.log("token in minPoolAmountOut:", minPoolAmountOut);
+        console.log("token in poolTokens:", this.poolTokens);
         const params = {
           poolAddress,
           tokenInAddress: this.activeToken,
           tokenAmountIn,
           minPoolAmountOut
         };
+        console.log("signl:----", params);
         await this.joinswapExternAmountIn(params);
       }
       this.$emit('close');
@@ -641,10 +661,13 @@ export default {
         this.bPool.metadata.rights.canWhitelistLPs
       ) {
         // Need to check if this address is on the LP whitelist
-        return await canProvideLiquidity(
+        const res = await canProvideLiquidity(
           this.bPool.metadata.controller,
           this.web3.dsProxyAddress
         );
+        console.log("canProvideLiquidity:", this.bPool.metadata.controller,
+            this.web3.dsProxyAddress, res);
+        return res;
       }
 
       return true;

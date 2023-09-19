@@ -87,7 +87,9 @@ export default {
   },
   computed: {
     lbpData() {
-      return getLbpData(this.pool, this.config.chainId);
+      const result = getLbpData(this.pool, this.config.chainId);
+      console.log("lbpData", result);
+      return result;
     },
     displayPriceHistory() {
       return this.pool.crp && this.lbpData.isLbpPool;

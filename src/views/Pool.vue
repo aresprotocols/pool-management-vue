@@ -78,6 +78,7 @@ export default {
   watch: {
     $route() {
       const id = this.$route.params.id;
+      console.log("pool", this.id, id);
       if (id !== this.id) {
         this.id = id;
         this.loadPool();
@@ -124,6 +125,7 @@ export default {
       this.modalRemoveLiquidityOpen = true;
     },
     async loadPool() {
+      console.log("loadPool", this.id, this.price);
       const bPool = new Pool(this.id);
       try {
         this.pool = await bPool.getMetadata();

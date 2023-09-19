@@ -111,6 +111,7 @@ const mutations = {
     console.debug('GET_BALANCES_REQUEST');
   },
   GET_BALANCES_SUCCESS(_state, payload) {
+    console.log("set blll", payload);
     for (const address in payload) {
       Vue.set(_state.balances, address, payload[address]);
     }
@@ -284,6 +285,8 @@ const actions = {
     ]);
   },
   getPoolBalances: async (_state, { poolAddress, tokens }) => {
+    console.log("getPoolBalances", poolAddress, tokens);
+    console.log("getPoolBalances", abi.TestToken);
     const promises: any = [];
     const multi = new Contract(
       config.addresses.multicall,
@@ -319,6 +322,8 @@ const actions = {
         }
         i++;
       });
+      console.log("get pool balance result:", balances);
+
       return balances;
     } catch (e) {
       return Promise.reject();
@@ -327,6 +332,7 @@ const actions = {
   getBalances: async ({ commit }, tokens) => {
     commit('GET_BALANCES_REQUEST');
     const address = state.account;
+    console.log("state acouuut", address)
     const promises: any = [];
     const multi = new Contract(
       config.addresses.multicall,
